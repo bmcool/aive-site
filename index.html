@@ -138,8 +138,9 @@
     padding-top: 40px;
   }
   @media (max-width: 1100px) {
+    .hero { padding-bottom: 72px; }
     .hero-inner {
-      max-width: 720px;
+      max-width: 860px;
       grid-template-columns: 1fr;
       gap: 0;
       text-align: center;
@@ -185,8 +186,18 @@
     background-clip: text;
     color: transparent;
   }
-  @media (max-width: 1100px) { .hero h1 { font-size: 44px; } }
-  @media (max-width: 760px) { .hero h1 { font-size: 38px; } }
+  @media (max-width: 1100px) {
+    .hero .brand-wordmark .star { width: 28px; height: 28px; }
+    .hero .brand-wordmark .name { font-size: 48px; }
+    .hero h1 { font-size: 58px; }
+    .hero p.lead { font-size: 18px; }
+  }
+  @media (max-width: 760px) {
+    .hero .brand-wordmark .star { width: 22px; height: 22px; }
+    .hero .brand-wordmark .name { font-size: 36px; }
+    .hero h1 { font-size: 38px; }
+    .hero p.lead { font-size: 17px; }
+  }
   .hero p.lead {
     font-size: 17px;
     color: var(--text-muted);
@@ -247,6 +258,9 @@
     padding: 0 24px;
     position: relative;
     z-index: 5;
+  }
+  @media (max-width: 1100px) {
+    .feature-row { margin-top: -42px; }
   }
   .feature-row-inner {
     background: var(--surface);
@@ -549,7 +563,6 @@
     flex-shrink: 0;
   }
   .faq-item[open] summary::after { content: "−"; }
-  .faq-item:not([open]) > p { display: block; }
   .faq-item p {
     margin: 14px 0 0;
     color: var(--text-muted);
@@ -559,7 +572,6 @@
   @media (max-width: 700px) {
     .faq-item summary { cursor: pointer; }
     .faq-item summary::after { display: block; }
-    .faq-item:not([open]) > p { display: none; }
   }
 
   /* ===== Bottom CTA banner ===== */
@@ -860,27 +872,27 @@
   <p class="section-lead">關於 AIve 的安全機制、資料保護與使用方式，這裡先回答你可能想到的幾個問題。</p>
 
   <div class="faq-grid">
-    <details class="faq-item">
+    <details class="faq-item" open>
       <summary>為什麼 AIve 只開放手機 OTP 註冊？</summary>
       <p>為了防止冒名帳號、AI 機器人與詐騙，AIve 不開放 Email、Google、Apple 等其他登入方式；只接受手機簡訊驗證。同一支電話只能對應一個帳號。</p>
     </details>
-    <details class="faq-item">
+    <details class="faq-item" open>
       <summary>真人驗證需要拍 3 張自拍，會被存起來嗎？</summary>
       <p>不會。3 張自拍只在驗證流程當下送 AWS Rekognition 比對「是否同一人」與「是否真的依指示做出動作」，比對完即時丟棄、不寫入持久化儲存。我們只保留一組數值化的「臉部特徵 ID」用於跨帳號去重。</p>
     </details>
-    <details class="faq-item">
+    <details class="faq-item" open>
       <summary>我上傳的展示照片誰看得到？</summary>
       <p>預設只有模糊版本會出現在他人的 feed。雙方需要互相同意才會解鎖清晰版本。配對後若你刪除照片，會立即從可見列表中移除。</p>
     </details>
-    <details class="faq-item">
+    <details class="faq-item" open>
       <summary>AIve 會把我的資料賣給廣告商或拿去訓練 AI 嗎？</summary>
       <p>不會。我們不為精準行銷把你的個資轉售給第三方，也不會在未經你同意下，把你的聊天訊息或卡片內容拿去訓練 AI 模型。</p>
     </details>
-    <details class="faq-item">
+    <details class="faq-item" open>
       <summary>位置是怎麼處理的？</summary>
       <p>AIve 只計算公里級的距離區間，不收集精確 GPS 座標，也不會直接把你的位置顯示給其他人。需要你在發卡當下授權定位才會啟用。</p>
     </details>
-    <details class="faq-item">
+    <details class="faq-item" open>
       <summary>刪除帳號後我的資料會去哪裡？</summary>
       <p>個人資料、發佈內容、臉部特徵 ID 會被刪除。為維持對方端的對話完整性，已發出的訊息會保留在對方的聊天紀錄中，但你的個人資料會被脫敏為「已刪除帳號」。詳見<a href="https://legal.aive.tw/privacy-policy.html">隱私權政策</a>。</p>
     </details>
@@ -944,6 +956,22 @@
   </div>
   <div class="copy">© 2026 AIve · Made with intention in Taiwan</div>
 </footer>
+
+<script>
+  (() => {
+    const mobileFaq = window.matchMedia("(max-width: 700px)");
+    const items = Array.from(document.querySelectorAll(".faq-item"));
+
+    const syncFaqState = () => {
+      items.forEach((item) => {
+        item.open = !mobileFaq.matches;
+      });
+    };
+
+    syncFaqState();
+    mobileFaq.addEventListener("change", syncFaqState);
+  })();
+</script>
 
 </body>
 </html>
