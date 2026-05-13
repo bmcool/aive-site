@@ -530,7 +530,7 @@
     padding: 20px 24px;
   }
   .faq-item summary {
-    cursor: pointer;
+    cursor: default;
     font-weight: 700;
     font-size: 15px;
     list-style: none;
@@ -543,16 +543,23 @@
   .faq-item summary::after {
     content: "+";
     color: var(--primary);
+    display: none;
     font-size: 22px;
     font-weight: 400;
     flex-shrink: 0;
   }
   .faq-item[open] summary::after { content: "−"; }
+  .faq-item:not([open]) > p { display: block; }
   .faq-item p {
     margin: 14px 0 0;
     color: var(--text-muted);
     font-size: 14px;
     line-height: 1.7;
+  }
+  @media (max-width: 700px) {
+    .faq-item summary { cursor: pointer; }
+    .faq-item summary::after { display: block; }
+    .faq-item:not([open]) > p { display: none; }
   }
 
   /* ===== Bottom CTA banner ===== */
