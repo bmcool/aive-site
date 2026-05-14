@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.barkur.aive",
+      "sha256_cert_fingerprints": [
+        "E2:11:F6:44:96:1B:D7:79:16:DD:86:0C:F3:B8:A5:D7:14:15:F3:90:FA:15:0F:1A:A1:87:A4:80:6D:49:73:C8",
+        "F5:46:69:30:4F:82:76:D6:57:6A:B1:DD:2F:A4:EE:CD:EE:EC:46:B1:D5:71:FA:A4:AF:55:B7:8E:A3:38:F4:79"
+      ]
+    }
+  }
+]
